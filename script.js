@@ -1,96 +1,48 @@
-const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+let cohortName = "2304-FTB-ET-WEB-FT";
+let APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 
-// Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
-// Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
-
-/**
- * It fetches all players from the API and returns them
- * @returns An array of objects.
- */
+//Fetching all player data from API
 const fetchAllPlayers = async () => {
-    try {
-
-    } catch (err) {
-        console.error('Uh oh, trouble fetching players!', err);
-    }
+  try {
+    let response = await fetch(`${APIURL}/players`);
+    let translatedData = await response.json();
+    let actualPuppyData = translatedData.data;
+    return actualPuppyData.players;
+  } catch (error) {
+    console.error("Uh oh, trouble fetching players!", error);
+  }
 };
 
-const fetchSinglePlayer = async (playerId) => {
-    try {
+async function renderAllPuppyData() {
+  let playerContainer = document.getElementById("all-players-container");
+  let myPuppyArray = await fetchAllPlayers();
+  for (let i = 0; i < myPuppyArray.length; i++) {
+    let myCurrentPuppy = myPuppyArray[i];
+    let puppyCardContainer = document.createElement("div");
+    puppyCardContainer.className = "puppy-card";
 
-    } catch (err) {
-        console.error(`Oh no, trouble fetching player #${playerId}!`, err);
-    }
-};
+    let newPuppyCardName = document.createElement("h2");
+    let newPuppCardBreed = document.createElement("p");
+    newPuppyCardName.innerText = myCurrentPuppy.name;
+    newPuppCardBreed.innerText = myCurrentPuppy.breed;
 
-const addNewPlayer = async (playerObj) => {
-    try {
+    let newPuppyDetails = document.createElement("button");
+    newPuppyDetails.id = "details-button";
+    newPuppyDetails.innerText = "Details";
+    newPuppyDetails.addEventListener("click", () => {
+      localStorage.setItem("puppyName", myCurrentPuppy.name);
+      localStorage.setItem("puppyBreed", myCurrentPuppy.breed);
+      localStorage.setItem("puppyStatus", myCurrentPuppy.status);
+      localStorage.setItem("puppyPic", myCurrentPuppy.imageUrl);
 
-    } catch (err) {
-        console.error('Oops, something went wrong with adding that player!', err);
-    }
-};
+      window.location.href = "details.html";
+    });
 
-const removePlayer = async (playerId) => {
-    try {
-
-    } catch (err) {
-        console.error(
-            `Whoops, trouble removing player #${playerId} from the roster!`,
-            err
-        );
-    }
-};
-
-/**
- * It takes an array of player objects, loops through them, and creates a string of HTML for each
- * player, then adds that string to a larger string of HTML that represents all the players. 
- * 
- * Then it takes that larger string of HTML and adds it to the DOM. 
- * 
- * It also adds event listeners to the buttons in each player card. 
- * 
- * The event listeners are for the "See details" and "Remove from roster" buttons. 
- * 
- * The "See details" button calls the `fetchSinglePlayer` function, which makes a fetch request to the
- * API to get the details for a single player. 
- * 
- * The "Remove from roster" button calls the `removePlayer` function, which makes a fetch request to
- * the API to remove a player from the roster. 
- * 
- * The `fetchSinglePlayer` and `removePlayer` functions are defined in the
- * @param playerList - an array of player objects
- * @returns the playerContainerHTML variable.
- */
-const renderAllPlayers = (playerList) => {
-    try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering players!', err);
-    }
-};
-
-
-/**
- * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
- * fetches all players from the database, and renders them to the DOM.
- */
-const renderNewPlayerForm = () => {
-    try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
-    }
+    puppyCardContainer.appendChild(newPuppyCardName);
+    puppyCardContainer.appendChild(newPuppCardBreed);
+    puppyCardContainer.appendChild(newPuppyDetails);
+    playerContainer.appendChild(puppyCardContainer);
+  }
 }
 
-const init = async () => {
-    const players = await fetchAllPlayers();
-    renderAllPlayers(players);
-
-    renderNewPlayerForm();
-}
-
-init();
+renderAllPuppyData();

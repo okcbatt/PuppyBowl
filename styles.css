@@ -1,5 +1,83 @@
-*{
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+#all-players-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.puppy-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.5rem solid black;
+  border-radius: 2rem;
+  padding: 2rem;
+  margin: 1rem;
+  background-color: #f5f5f5;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  width: calc(33.33% - 2rem);
+  box-sizing: border-box;
+}
+
+.puppy-card h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.puppy-card p {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+#details-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#details-button:hover {
+  background-color: #45a049;
+}
+
+#puppy-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 0.5rem solid black;
+  border-radius: 2rem;
+  padding: 1rem;
+  max-width: 18.75rem;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #f5f5f5;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  width: calc(33.33% - 2rem);
+  box-sizing: border-box;
+}
+
+#puppy-details-container h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#puppy-details-container p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#puppy-details-container img {
+  max-width: 100%;
+  border-radius: 0.5rem;
 }
